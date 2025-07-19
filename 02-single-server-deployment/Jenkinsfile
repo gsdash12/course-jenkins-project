@@ -1,11 +1,36 @@
 pipeline {
    agent any
-   stages {
-      stage('build') {
+   environment {
+      Server_IP = credentials('prod_server_ip')
+   }
+   stages{
+      stage('Checkout') {
          steps{
-            echo "hello world"
+            git url: "https://https://github.com/gsdash12/course-jenkins-project.git", branch: 'main'
+            sh 'ls -ltr'
+         }
+      }
+      stage('Setup') {
+         steps{
+            sh 'pip install -r requirements.txt'
+         }
+      }
+      stage('Tets') {
+         steps{
+            sh 'pytest'
+         }
+      }
+      stage('Package Code') {
+         steps{
+            sh "zip -r myapp.zip ./* -x '**.git**'"
+            sh 'ls -lart'
+         }
+      }
+      stage('Deployment') {
+         steps{
+            echo 'hello world'
+         }
+
+      }
+   }
 }
-}
-}
-}
-   
