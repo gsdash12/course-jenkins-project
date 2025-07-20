@@ -1,6 +1,7 @@
 pipeline {
    agent any
    environment {
+      Project_Dir = "02-single-server-deployment"
       Server_IP = credentials('prod_server_ip')
    }
    stages{
@@ -12,30 +13,31 @@ pipeline {
       }
       stage('Setup') {
          steps{
-            dir('02-single-server-deployment') {
-               sh '''
-                   python3 -m venv venv
-                  . venv/bin/activate
-                  ./venv/bin/pip install --upgrade pip
-                  ./venv/bin/pip install -r requirements.txt
-               '''
-            }   
+            sh '''
+                cd "$Project_Dir"
+                python3 -m venv venv
+                . venv/bin/activate
+                ./venv/bin/pip install --upgrade pip
+                ./venv/bin/pip install -r requirements.txt
+            '''   
          }
       }
-      stage('Tets') {
+      stage('Test') {
          steps{
-            dir('02-single-server-deployment') {
-               sh '''
-                   . venv/bin/activate
-                   ./venv/bin/python -m pytest
-               '''
-            }    
+            sh '''
+                cd "$Project_Dir"
+                . venv/bin/activate
+                ./venv/bin/python -m pytest
+            '''       
          }
       }
       stage('Package Code') {
          steps{
-            sh "zip -r myapp.zip ./* -x '**.git**'"
-            sh 'ls -lart'
+            sh '''
+               cd "Project_Dir"
+                "zip -r myapp.zip ./* -x '**.git**'"
+                'ls -lart"
+            '''
          }
       }
       stage('Deployment') {
