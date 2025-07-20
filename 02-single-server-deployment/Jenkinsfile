@@ -23,7 +23,9 @@ pipeline {
       }
       stage('Tets') {
          steps{
-            sh 'pytest'
+            dir('02-single-server-deployment') {
+               sh 'pytest'
+            }    
          }
       }
       stage('Package Code') {
