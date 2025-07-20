@@ -12,7 +12,7 @@ pipeline {
       }
       stage('Setup') {
          steps{
-            dir('02-single-server-deployemnt') {
+            dir('02-single-server-deployment') {
                sh '''
                    python3 -m venv venv
                    . venv/bin/activate
