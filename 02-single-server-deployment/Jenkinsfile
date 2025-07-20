@@ -15,8 +15,9 @@ pipeline {
             dir('02-single-server-deployment') {
                sh '''
                    python3 -m venv venv
-                   . venv/bin/activate
-                   pip install --break-system-packages -r requirements.txt
+                  . venv/bin/activate
+                  ./venv/bin/pip install --upgrade pip
+                  ./venv/bin/pip install -r requirements.txt
                '''
             }   
          }
@@ -24,7 +25,10 @@ pipeline {
       stage('Tets') {
          steps{
             dir('02-single-server-deployment') {
-               sh 'pytest'
+               sh '''
+                   . venv/bin/activate
+                   .venv/bin/python3 -m pytest
+               '''
             }    
          }
       }
