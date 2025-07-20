@@ -34,7 +34,7 @@ pipeline {
       stage('Package Code') {
          steps{
             sh '''
-               cd "Project_Dir"
+               cd "$Project_Dir"
                 "zip -r myapp.zip ./* -x '**.git**'"
                 'ls -lart"
             '''
