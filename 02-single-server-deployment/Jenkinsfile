@@ -27,7 +27,7 @@ pipeline {
             dir('02-single-server-deployment') {
                sh '''
                    . venv/bin/activate
-                   .venv/bin/python3.12 -m pytest
+                   .venv/bin/python -m pytest
                '''
             }    
          }
