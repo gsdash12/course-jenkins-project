@@ -12,11 +12,13 @@ pipeline {
       }
       stage('Setup') {
          steps{
-            sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --break-system-packages -r requirements.txt
-            '''
+            dir('02-single-server-deployemnt') {
+               sh '''
+                   python3 -m venv venv
+                   . venv/bin/activate
+                   pip install --break-system-packages -r requirements.txt
+               '''
+            }   
          }
       }
       stage('Tets') {
