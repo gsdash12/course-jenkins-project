@@ -35,8 +35,9 @@ pipeline {
          steps{
             sh '''
                cd "$Project_Dir"
-                "/usr/bin/zip -r myapp.zip ./* -x '**.git**'"
-                'ls -lart"
+               PATH=$PATH:/usr/bin
+                zip -r myapp.zip ./* -x '**.git**'
+                ls -lart
             '''
          }
       }
