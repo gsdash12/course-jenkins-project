@@ -52,7 +52,7 @@ pipeline {
                     cd /home/ubuntu/app
                     python3 -m venv venv
                     . app/venv/bin/activate
-                    pip install -r requirements.txt
+                    .app/venv/bin/pip install -r requirements.txt
                     sudo systemctl restart flask-app.service
                     EOF
                 ''' 
