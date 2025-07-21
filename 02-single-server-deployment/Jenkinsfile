@@ -49,7 +49,7 @@ pipeline {
                     scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/tmp
                     ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP}
                     echo "Fixing Permission"
-                    chmod 777 /tmp/myapp.zip
+                    sudo chmod 777 /tmp/myapp.zip
                     echo "Checking Zip"
                     ls -ltr /tmp/myapp.zip
                     sleep 10
