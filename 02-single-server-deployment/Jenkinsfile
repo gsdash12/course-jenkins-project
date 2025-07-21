@@ -45,6 +45,7 @@ pipeline {
          steps {
             withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                 sh '''
+                    cd "$Project_Dir"
                     scp -i '$MY_SSH_KEY' -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/home/ubuntu
                     ssh -i '$MY_SSH_KEY' -o StrictHostKeyChecking=no ${username}@${Server_IP} << EOF
                     unzip -o /home/ubuntu/myapp.zip -d /home/ubuntu/app/
