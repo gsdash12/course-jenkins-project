@@ -50,9 +50,7 @@ pipeline {
                     ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP} << EOF
                     unzip -o /home/ubuntu/myapp.zip -d /home/ubuntu/app/
                     cd /home/ubuntu/app
-                    python3 -m venv venv
-                    . /venv/bin/activate
-                    . /venv/bin/pip install -r requirements.txt
+                    pip install --break-system-packages -r requirements.txt
                     sudo systemctl restart flask-app.service
                     EOF
                ''' 
