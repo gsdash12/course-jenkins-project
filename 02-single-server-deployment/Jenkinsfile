@@ -46,13 +46,13 @@ pipeline {
             withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key', keyFileVariable: 'MY_SSH_KEY', usernameVariable: 'username')]) {
                 sh '''
                     cd "$Project_Dir"
-                    scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/home/ubuntu
+                    scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/tmp
                     ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP}
                     echo "Checking Zip"
-                    ls -ltr /home/ubuntu/myapp.zip
+                    ls -ltr /tmp/myapp.zip
                     sleep 10
                     echo "unzipping"
-                    unzip -o /home/ubuntu/myapp.zip -d /home/ubuntu/app/
+                    unzip -o /tmp/myapp.zip -d /home/ubuntu/app/
                     cd /home/ubuntu/app
                     pip install --break-system-packages -r requirements.txt
                     sudo systemctl restart flask-app.service
