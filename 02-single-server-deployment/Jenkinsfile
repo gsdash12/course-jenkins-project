@@ -47,13 +47,11 @@ pipeline {
             sh """
                 cd "$Project_Dir"
                 scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip \${username}@\${Server_IP}:/home/ubuntu
-                ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no \${username}@\${Server_IP} << 'EOF'
+                ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no \${username}@\${Server_IP} 
                 unzip -o /home/ubuntu/myapp.zip -d /home/ubuntu/app/
                 cd /home/ubuntu/app
-                python3 -m venv venv
                 pip install --break-system-packages -r requirements.txt
                 sudo systemctl restart flask-app.service
-                EOF
             """
         }
     }
