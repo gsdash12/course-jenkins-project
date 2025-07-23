@@ -26,7 +26,6 @@ pipeline {
          steps{
             sh '''
                 cd "$Project_Dir"
-                . venv/bin/activate
                 ./venv/bin/python -m pytest
             '''       
          }
@@ -48,7 +47,6 @@ pipeline {
                     cd "$Project_Dir"
                     scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/tmp
                     ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP} "
-                    sleep 10
                     echo "unzipping"
                     unzip -o /tmp/myapp.zip -d /home/ubuntu/app/
                     cd /home/ubuntu/app
