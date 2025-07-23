@@ -48,10 +48,7 @@ pipeline {
                     cd "$Project_Dir"
                     scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/tmp
                     ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP}
-                    echo "Fixing Permission"
-                    sudo chmod 777 /tmp/myapp.zip
-                    echo "Checking Zip"
-                    ls -ltr /tmp/myapp.zip
+                    cd tmp
                     sleep 10
                     echo "unzipping"
                     unzip -o /tmp/myapp.zip -d /home/ubuntu/app/
