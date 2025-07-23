@@ -47,13 +47,14 @@ pipeline {
                 sh '''
                     cd "$Project_Dir"
                     scp -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no myapp.zip ${username}@${Server_IP}:/tmp
-                    ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP}
+                    ssh -i "$MY_SSH_KEY" -o StrictHostKeyChecking=no ${username}@${Server_IP} "
                     sleep 10
                     echo "unzipping"
                     unzip -o /tmp/myapp.zip -d /home/ubuntu/app/
                     cd /home/ubuntu/app
                     pip install --break-system-packages -r requirements.txt
                     sudo systemctl restart flask-app.service
+                    "
                ''' 
             } 
          }
