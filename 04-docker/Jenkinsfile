@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh '''
                     cd "${Project_DIR}"
-                    pytest
+                    . venv/bin/activate -m pytest
                 '''
             }
         }
