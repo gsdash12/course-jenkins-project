@@ -41,5 +41,15 @@ pipeline {
                 }
             }
         }
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    cd "${Project_DIR}"
+                    docker build -t "${IMAGE_TAG} .
+                    echo " Docker Image built Successfully "
+                    docker image ls
+                '''
+            }
+        }
     }
 }
