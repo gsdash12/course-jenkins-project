@@ -51,5 +51,23 @@ pipeline {
                 '''
             }
         }
+      
+        stage('Docker Push') {
+            steps{
+                sh '''
+                   docker push "${IMAGE_TAG}"
+                   echo "Image Pushed to Docker Hub"
+                '''
+            }
+        }
+        stage('Deploy the Docker image') {
+            steps{
+                sh '''
+                    docker run -it "${IMAGE_TAG}"
+                    echo "Image run successfully"
+                    docker ps
+                '''
+            }
+        }
     }
 }
