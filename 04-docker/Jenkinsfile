@@ -60,6 +60,21 @@ pipeline {
                 '''
             }
         }
+        stage('Approval for to Deploy') {
+            steps{
+                script {
+                    def userInput = input(Id: 'userInput',
+                        message: 'Approve and Enter your Docker Image name',
+                        parameters: [
+                            string(name: 'DOCKER_IMAGE',
+                            defaultValue: "${IMAGE_TAG}",
+                            description: 'Enter the Docker Image name')
+                        ]
+                    )
+                    env.DOCKER_IMAGE = userInput
+                }
+            }
+        }
         stage('Deploy the Docker image') {
             steps{
                 sh '''
