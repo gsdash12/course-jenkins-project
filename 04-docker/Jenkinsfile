@@ -1,11 +1,10 @@
 pipeline {
     agent any
-    environement {
+    environment {
         Project_DIR = "04-docker"
         IMAGE_NAME = "gsdash12/docker_project"
         IMAGE_TAG = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
     }
-
     stages {
         stage('checkout') {
             steps {
