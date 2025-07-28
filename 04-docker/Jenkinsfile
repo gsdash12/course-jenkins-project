@@ -78,7 +78,7 @@ pipeline {
         stage('Deploy the Docker image') {
             steps{
                 sh '''
-                    docker run -d "${IMAGE_TAG}"
+                    docker run -d -p 5000:5000 "${IMAGE_TAG}"
                     echo "Image run successfully"
                     docker ps
                 '''
