@@ -67,7 +67,7 @@ pipeline {
                         message: 'Approve and Enter your Docker Image name',
                         parameters: [
                             string(name: 'DOCKER_IMAGE',
-                            defaultValue: "defaultvalue",
+                            defaultValue: "${IMAGE_TAG}",
                             description: 'Enter the Docker Image name')
                         ]
                     )
